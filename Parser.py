@@ -17,15 +17,15 @@ f = open('VisualOnixTest.html','w')
 def p_expression_createhtml(p):
             'expression :  CREATEHTML'
 
-            f.write("<HTML><BODY><h1>This is only for fun</h1><svg width=\"100000\" height=\"100000\">")
+            f.write("<HTML> \n <BODY> \n <h1>This is only for fun</h1><svg width=\"100000\" height=\"100000\">")
             print ("WHOO")
 
 
 def p_expression_circle(p):
 
-        'expression : CIRCLE NUMBER NUMBER NUMBER term term'
+        'expression : CIRCLE term NUMBER NUMBER NUMBER term term'
 
-        f.write("<circle cx=\"" + str(p[2]) + "\" cy=\"" + str(p[3]) + "\" r=\"" + str(p[4]) + "\" stroke=\"" + str(p[5]) + "\" stroke-width=\"4\" fill=\"" + str(p[6]) + "\" />")
+        f.write("<circle id=\""+ str(p[2]) +"\" cx=\"" + str(p[3]) + "\" cy=\"" + str(p[4]) + "\" r=\"" + str(p[5]) + "\" stroke=\"" + str(p[6]) + "\" stroke-width=\"4\" fill=\"" + str(p[7]) + "\" />")
 
 
 def p_expression_rectangle(p):
@@ -48,12 +48,12 @@ def p_expression_line(p):
 
 def p_expression_polygon(p):
 
-        '''expression : POLYGON NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER term term
-                        | POLYGON NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER term term
-                        | POLYGON NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER term term
-                        | POLYGON NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER term term
-                        | POLYGON NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER term term
-                        | POLYGON NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER NUMBER COLON NUMBER  term term'''
+        '''expression : POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
+                        | POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
+                        | POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
+                        | POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
+                        | POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
+                        | POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER  term term'''
         if len(p) == 13:
             f.write("<polygon points=\"" + str(p[2]) + str(p[3]) + str(p[4])+ " " + str(p[5]) + str(p[6]) + str(p[7]) + " " + str(p[8]) + str(p[9]) + str(p[10]) + "\" stroke=\"" + str(p[11]) + "\" stroke-width=\"4\" fill=\"" + str(p[12]) + "\" />")
         elif len(p) == 16:
@@ -78,6 +78,17 @@ def p_expression_end(p):
             f.write("</svg></BODY></HTML>")
             f.close()
             sys.exit()
+
+def p_animate_draw(p):
+    'expression : ANIMATE term DRAW'
+
+    f.write("<style type=\"text/css\"> #"+ str(p[2]) +"{background-color: #fff;stroke-width: 4;stroke-dasharray: 4000;stroke-dashoffset: 4000 ;animation: offset 2s linear forwards, fill 2s 2s forwards;}@keyframes offset{0%{fill-opacity: 0;}100%{stroke-dashoffset: 0;fill-opacity: 0;} }@keyframes fill{0%{fill: #231F20;fill-opacity: 0;} }</style>")
+
+def p_animate_moveright(p):
+    'expression : ANIMATE term MOVERIGHT'
+
+    f.write("<style type=\"text/css\"> #"+ str(p[2]) +"{background-color: #fff;stroke-width: 4;cx: 200; ;animation: offset 2s linear forwards, fill 2s 2s forwards;}@keyframes offset{0%{cx: 300;}100%{cx: 800;fill-opacity: 0;} }@keyframes fill{0%{fill: #231F20;fill-opacity: 0;} }</style>")
+
 
 
 
