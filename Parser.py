@@ -17,7 +17,7 @@ f = open('VisualOnixTest.html','w')
 def p_expression_createhtml(p):
             'expression :  CREATEHTML'
 
-            f.write("<HTML> \n <BODY> \n <h1>This is only for fun</h1><svg width=\"100000\" height=\"100000\">")
+            f.write("<HTML> \n <style>body{background-image: url(\"cuadriculado.jpg\");} td,table,tr{width:100%; height:150px;}</style> <BODY><center><table><tr><td style=\"background-image:url(banner.jpg)\"><h1>Welcome to Visual Onix</h1></td></tr></table></center><svg width=\"100000\" height=\"100000\">")
             print ("WHOO")
 
 

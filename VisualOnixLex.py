@@ -1,23 +1,18 @@
 
 import ply.lex as lex
 
-reserved = {'draw':'DRAW', 'stroke':'STROKE','strokewidth':'STROKEWIDTH',
+reserved = {'draw':'DRAW',
             'circle': 'CIRCLE', 'rect': 'RECT',
             'polygon':'POLYGON','id':'ID',
             'line': 'LINE','animate' : 'ANIMATE',
             'ellipse' : 'ELLIPSE', 'createhtml':'CREATEHTML' ,'text':'TEXT', 'id':'ID',
-            'polyline':'POLYLINE','end':'END', 'moveright': 'MOVERIGHT'}
+            'end':'END', 'moveright': 'MOVERIGHT'}
 
 # ------------------------------------------------------------
 # List of token names. This are for general purpose use.
 # ------------------------------------------------------------
 tokens = [
-   'EQUAL',
-   'LPAREN',
-   'RPAREN',
-   'CONSTANTVALUE',
    'NUMBER',
-   'SEMICOLON',
    'COMA',
    'STRINGVALUE'
 ]  + list(reserved.values())
@@ -26,12 +21,7 @@ tokens = [
 # Regular expression rules for simple parenthesis tokens.
 # ------------------------------------------------------------
 
-t_LPAREN  = r'\('
-t_RPAREN  = r'\)'
-t_EQUAL = r'\='
-t_SEMICOLON = r'\;'
 t_COMA = r'\,'
-t_CONSTANTVALUE = r'[A-Z]{2,}'
 t_STRINGVALUE = r'(\>(\\.|[^"])*\<)'
 ##t_NUMERICVALUE = r'^(\+|\-)?(?=\D*\d)([0-9])*\.([0-9])*$'
 
