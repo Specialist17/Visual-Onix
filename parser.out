@@ -5,8 +5,8 @@ Grammar
 Rule 0     S' -> expression
 Rule 1     expression -> CREATEHTML
 Rule 2     expression -> CIRCLE term NUMBER NUMBER NUMBER term term
-Rule 3     expression -> RECT NUMBER NUMBER NUMBER NUMBER term term
-Rule 4     expression -> ELLIPSE NUMBER NUMBER NUMBER NUMBER term term
+Rule 3     expression -> RECT term NUMBER NUMBER NUMBER NUMBER term term
+Rule 4     expression -> ELLIPSE term NUMBER NUMBER NUMBER NUMBER term term
 Rule 5     expression -> LINE NUMBER NUMBER NUMBER NUMBER term term
 Rule 6     expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
 Rule 7     expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
@@ -43,7 +43,7 @@ error                :
 Nonterminals, with rules where they appear
 
 expression           : 0
-term                 : 2 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10 11 11 12 14 15 17
+term                 : 2 2 2 3 3 3 4 4 4 5 5 6 6 7 7 8 8 9 9 10 10 11 11 12 14 15 17
 
 Parsing method: LALR
 
@@ -52,8 +52,8 @@ state 0
     (0) S' -> . expression
     (1) expression -> . CREATEHTML
     (2) expression -> . CIRCLE term NUMBER NUMBER NUMBER term term
-    (3) expression -> . RECT NUMBER NUMBER NUMBER NUMBER term term
-    (4) expression -> . ELLIPSE NUMBER NUMBER NUMBER NUMBER term term
+    (3) expression -> . RECT term NUMBER NUMBER NUMBER NUMBER term term
+    (4) expression -> . ELLIPSE term NUMBER NUMBER NUMBER NUMBER term term
     (5) expression -> . LINE NUMBER NUMBER NUMBER NUMBER term term
     (6) expression -> . POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (7) expression -> . POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
@@ -68,26 +68,29 @@ state 0
     (17) expression -> . term
     (16) term -> . ID
 
-    CREATEHTML      shift and go to state 11
-    CIRCLE          shift and go to state 4
-    RECT            shift and go to state 6
-    ELLIPSE         shift and go to state 10
-    LINE            shift and go to state 12
-    POLYGON         shift and go to state 3
-    TEXT            shift and go to state 8
-    END             shift and go to state 1
-    ANIMATE         shift and go to state 7
-    ID              shift and go to state 9
+    CREATEHTML      shift and go to state 8
+    CIRCLE          shift and go to state 9
+    RECT            shift and go to state 12
+    ELLIPSE         shift and go to state 11
+    LINE            shift and go to state 5
+    POLYGON         shift and go to state 4
+    TEXT            shift and go to state 6
+    END             shift and go to state 3
+    ANIMATE         shift and go to state 1
+    ID              shift and go to state 7
 
-    expression                     shift and go to state 5
     term                           shift and go to state 2
+    expression                     shift and go to state 10
 
 state 1
 
-    (13) expression -> END .
+    (14) expression -> ANIMATE . term DRAW
+    (15) expression -> ANIMATE . term MOVERIGHT
+    (16) term -> . ID
 
-    $end            reduce using rule 13 (expression -> END .)
+    ID              shift and go to state 7
 
+    term                           shift and go to state 13
 
 state 2
 
@@ -98,6 +101,13 @@ state 2
 
 state 3
 
+    (13) expression -> END .
+
+    $end            reduce using rule 13 (expression -> END .)
+
+
+state 4
+
     (6) expression -> POLYGON . NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (7) expression -> POLYGON . NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (8) expression -> POLYGON . NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
@@ -105,82 +115,85 @@ state 3
     (10) expression -> POLYGON . NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (11) expression -> POLYGON . NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
 
-    NUMBER          shift and go to state 13
+    NUMBER          shift and go to state 14
 
-
-state 4
-
-    (2) expression -> CIRCLE . term NUMBER NUMBER NUMBER term term
-    (16) term -> . ID
-
-    ID              shift and go to state 9
-
-    term                           shift and go to state 14
 
 state 5
 
-    (0) S' -> expression .
-
-
-
-state 6
-
-    (3) expression -> RECT . NUMBER NUMBER NUMBER NUMBER term term
+    (5) expression -> LINE . NUMBER NUMBER NUMBER NUMBER term term
 
     NUMBER          shift and go to state 15
 
 
-state 7
-
-    (14) expression -> ANIMATE . term DRAW
-    (15) expression -> ANIMATE . term MOVERIGHT
-    (16) term -> . ID
-
-    ID              shift and go to state 9
-
-    term                           shift and go to state 16
-
-state 8
+state 6
 
     (12) expression -> TEXT . NUMBER NUMBER term STRINGVALUE
 
-    NUMBER          shift and go to state 17
+    NUMBER          shift and go to state 16
 
 
-state 9
+state 7
 
     (16) term -> ID .
 
-    ID              reduce using rule 16 (term -> ID .)
     $end            reduce using rule 16 (term -> ID .)
     NUMBER          reduce using rule 16 (term -> ID .)
+    ID              reduce using rule 16 (term -> ID .)
     DRAW            reduce using rule 16 (term -> ID .)
     MOVERIGHT       reduce using rule 16 (term -> ID .)
     STRINGVALUE     reduce using rule 16 (term -> ID .)
 
 
-state 10
-
-    (4) expression -> ELLIPSE . NUMBER NUMBER NUMBER NUMBER term term
-
-    NUMBER          shift and go to state 18
-
-
-state 11
+state 8
 
     (1) expression -> CREATEHTML .
 
     $end            reduce using rule 1 (expression -> CREATEHTML .)
 
 
+state 9
+
+    (2) expression -> CIRCLE . term NUMBER NUMBER NUMBER term term
+    (16) term -> . ID
+
+    ID              shift and go to state 7
+
+    term                           shift and go to state 17
+
+state 10
+
+    (0) S' -> expression .
+
+
+
+state 11
+
+    (4) expression -> ELLIPSE . term NUMBER NUMBER NUMBER NUMBER term term
+    (16) term -> . ID
+
+    ID              shift and go to state 7
+
+    term                           shift and go to state 18
+
 state 12
 
-    (5) expression -> LINE . NUMBER NUMBER NUMBER NUMBER term term
+    (3) expression -> RECT . term NUMBER NUMBER NUMBER NUMBER term term
+    (16) term -> . ID
 
-    NUMBER          shift and go to state 19
+    ID              shift and go to state 7
 
+    term                           shift and go to state 19
 
 state 13
+
+    (14) expression -> ANIMATE term . DRAW
+    (15) expression -> ANIMATE term . MOVERIGHT
+
+    DRAW            shift and go to state 20
+    MOVERIGHT       shift and go to state 21
+
+
+state 14
 
     (6) expression -> POLYGON NUMBER . COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (7) expression -> POLYGON NUMBER . COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
@@ -189,54 +202,59 @@ state 13
     (10) expression -> POLYGON NUMBER . COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (11) expression -> POLYGON NUMBER . COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
 
-    COMA            shift and go to state 20
-
-
-state 14
-
-    (2) expression -> CIRCLE term . NUMBER NUMBER NUMBER term term
-
-    NUMBER          shift and go to state 21
+    COMA            shift and go to state 22
 
 
 state 15
 
-    (3) expression -> RECT NUMBER . NUMBER NUMBER NUMBER term term
+    (5) expression -> LINE NUMBER . NUMBER NUMBER NUMBER term term
 
-    NUMBER          shift and go to state 22
+    NUMBER          shift and go to state 23
 
 
 state 16
 
-    (14) expression -> ANIMATE term . DRAW
-    (15) expression -> ANIMATE term . MOVERIGHT
+    (12) expression -> TEXT NUMBER . NUMBER term STRINGVALUE
 
-    DRAW            shift and go to state 23
-    MOVERIGHT       shift and go to state 24
+    NUMBER          shift and go to state 24
 
 
 state 17
 
-    (12) expression -> TEXT NUMBER . NUMBER term STRINGVALUE
+    (2) expression -> CIRCLE term . NUMBER NUMBER NUMBER term term
 
     NUMBER          shift and go to state 25
 
 
 state 18
 
-    (4) expression -> ELLIPSE NUMBER . NUMBER NUMBER NUMBER term term
+    (4) expression -> ELLIPSE term . NUMBER NUMBER NUMBER NUMBER term term
 
     NUMBER          shift and go to state 26
 
 
 state 19
 
-    (5) expression -> LINE NUMBER . NUMBER NUMBER NUMBER term term
+    (3) expression -> RECT term . NUMBER NUMBER NUMBER NUMBER term term
 
     NUMBER          shift and go to state 27
 
 
 state 20
+
+    (14) expression -> ANIMATE term DRAW .
+
+    $end            reduce using rule 14 (expression -> ANIMATE term DRAW .)
+
+
+state 21
+
+    (15) expression -> ANIMATE term MOVERIGHT .
+
+    $end            reduce using rule 15 (expression -> ANIMATE term MOVERIGHT .)
+
+
+state 22
 
     (6) expression -> POLYGON NUMBER COMA . NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (7) expression -> POLYGON NUMBER COMA . NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
@@ -248,53 +266,39 @@ state 20
     NUMBER          shift and go to state 28
 
 
-state 21
+state 23
 
-    (2) expression -> CIRCLE term NUMBER . NUMBER NUMBER term term
+    (5) expression -> LINE NUMBER NUMBER . NUMBER NUMBER term term
 
     NUMBER          shift and go to state 29
 
 
-state 22
-
-    (3) expression -> RECT NUMBER NUMBER . NUMBER NUMBER term term
-
-    NUMBER          shift and go to state 30
-
-
-state 23
-
-    (14) expression -> ANIMATE term DRAW .
-
-    $end            reduce using rule 14 (expression -> ANIMATE term DRAW .)
-
-
 state 24
-
-    (15) expression -> ANIMATE term MOVERIGHT .
-
-    $end            reduce using rule 15 (expression -> ANIMATE term MOVERIGHT .)
-
-
-state 25
 
     (12) expression -> TEXT NUMBER NUMBER . term STRINGVALUE
     (16) term -> . ID
 
-    ID              shift and go to state 9
+    ID              shift and go to state 7
 
-    term                           shift and go to state 31
+    term                           shift and go to state 30
+
+state 25
+
+    (2) expression -> CIRCLE term NUMBER . NUMBER NUMBER term term
+
+    NUMBER          shift and go to state 31
+
 
 state 26
 
-    (4) expression -> ELLIPSE NUMBER NUMBER . NUMBER NUMBER term term
+    (4) expression -> ELLIPSE term NUMBER . NUMBER NUMBER NUMBER term term
 
     NUMBER          shift and go to state 32
 
 
 state 27
 
-    (5) expression -> LINE NUMBER NUMBER . NUMBER NUMBER term term
+    (3) expression -> RECT term NUMBER . NUMBER NUMBER NUMBER term term
 
     NUMBER          shift and go to state 33
 
@@ -313,35 +317,35 @@ state 28
 
 state 29
 
-    (2) expression -> CIRCLE term NUMBER NUMBER . NUMBER term term
+    (5) expression -> LINE NUMBER NUMBER NUMBER . NUMBER term term
 
     NUMBER          shift and go to state 35
 
 
 state 30
 
-    (3) expression -> RECT NUMBER NUMBER NUMBER . NUMBER term term
+    (12) expression -> TEXT NUMBER NUMBER term . STRINGVALUE
 
-    NUMBER          shift and go to state 36
+    STRINGVALUE     shift and go to state 36
 
 
 state 31
 
-    (12) expression -> TEXT NUMBER NUMBER term . STRINGVALUE
+    (2) expression -> CIRCLE term NUMBER NUMBER . NUMBER term term
 
-    STRINGVALUE     shift and go to state 37
+    NUMBER          shift and go to state 37
 
 
 state 32
 
-    (4) expression -> ELLIPSE NUMBER NUMBER NUMBER . NUMBER term term
+    (4) expression -> ELLIPSE term NUMBER NUMBER . NUMBER NUMBER term term
 
     NUMBER          shift and go to state 38
 
 
 state 33
 
-    (5) expression -> LINE NUMBER NUMBER NUMBER . NUMBER term term
+    (3) expression -> RECT term NUMBER NUMBER . NUMBER NUMBER term term
 
     NUMBER          shift and go to state 39
 
@@ -360,46 +364,42 @@ state 34
 
 state 35
 
-    (2) expression -> CIRCLE term NUMBER NUMBER NUMBER . term term
+    (5) expression -> LINE NUMBER NUMBER NUMBER NUMBER . term term
     (16) term -> . ID
 
-    ID              shift and go to state 9
+    ID              shift and go to state 7
 
     term                           shift and go to state 41
 
 state 36
-
-    (3) expression -> RECT NUMBER NUMBER NUMBER NUMBER . term term
-    (16) term -> . ID
-
-    ID              shift and go to state 9
-
-    term                           shift and go to state 42
-
-state 37
 
     (12) expression -> TEXT NUMBER NUMBER term STRINGVALUE .
 
     $end            reduce using rule 12 (expression -> TEXT NUMBER NUMBER term STRINGVALUE .)
 
 
-state 38
+state 37
 
-    (4) expression -> ELLIPSE NUMBER NUMBER NUMBER NUMBER . term term
+    (2) expression -> CIRCLE term NUMBER NUMBER NUMBER . term term
     (16) term -> . ID
 
-    ID              shift and go to state 9
+    ID              shift and go to state 7
 
-    term                           shift and go to state 43
+    term                           shift and go to state 42
+
+state 38
+
+    (4) expression -> ELLIPSE term NUMBER NUMBER NUMBER . NUMBER term term
+
+    NUMBER          shift and go to state 43
+
 
 state 39
 
-    (5) expression -> LINE NUMBER NUMBER NUMBER NUMBER . term term
-    (16) term -> . ID
+    (3) expression -> RECT term NUMBER NUMBER NUMBER . NUMBER term term
 
-    ID              shift and go to state 9
+    NUMBER          shift and go to state 44
 
-    term                           shift and go to state 44
 
 state 40
 
@@ -415,37 +415,37 @@ state 40
 
 state 41
 
-    (2) expression -> CIRCLE term NUMBER NUMBER NUMBER term . term
+    (5) expression -> LINE NUMBER NUMBER NUMBER NUMBER term . term
     (16) term -> . ID
 
-    ID              shift and go to state 9
+    ID              shift and go to state 7
 
     term                           shift and go to state 46
 
 state 42
 
-    (3) expression -> RECT NUMBER NUMBER NUMBER NUMBER term . term
+    (2) expression -> CIRCLE term NUMBER NUMBER NUMBER term . term
     (16) term -> . ID
 
-    ID              shift and go to state 9
+    ID              shift and go to state 7
 
     term                           shift and go to state 47
 
 state 43
 
-    (4) expression -> ELLIPSE NUMBER NUMBER NUMBER NUMBER term . term
+    (4) expression -> ELLIPSE term NUMBER NUMBER NUMBER NUMBER . term term
     (16) term -> . ID
 
-    ID              shift and go to state 9
+    ID              shift and go to state 7
 
     term                           shift and go to state 48
 
 state 44
 
-    (5) expression -> LINE NUMBER NUMBER NUMBER NUMBER term . term
+    (3) expression -> RECT term NUMBER NUMBER NUMBER NUMBER . term term
     (16) term -> . ID
 
-    ID              shift and go to state 9
+    ID              shift and go to state 7
 
     term                           shift and go to state 49
 
@@ -463,31 +463,35 @@ state 45
 
 state 46
 
+    (5) expression -> LINE NUMBER NUMBER NUMBER NUMBER term term .
+
+    $end            reduce using rule 5 (expression -> LINE NUMBER NUMBER NUMBER NUMBER term term .)
+
+
+state 47
+
     (2) expression -> CIRCLE term NUMBER NUMBER NUMBER term term .
 
     $end            reduce using rule 2 (expression -> CIRCLE term NUMBER NUMBER NUMBER term term .)
 
 
-state 47
-
-    (3) expression -> RECT NUMBER NUMBER NUMBER NUMBER term term .
-
-    $end            reduce using rule 3 (expression -> RECT NUMBER NUMBER NUMBER NUMBER term term .)
-
-
 state 48
 
-    (4) expression -> ELLIPSE NUMBER NUMBER NUMBER NUMBER term term .
+    (4) expression -> ELLIPSE term NUMBER NUMBER NUMBER NUMBER term . term
+    (16) term -> . ID
 
-    $end            reduce using rule 4 (expression -> ELLIPSE NUMBER NUMBER NUMBER NUMBER term term .)
+    ID              shift and go to state 7
 
+    term                           shift and go to state 51
 
 state 49
 
-    (5) expression -> LINE NUMBER NUMBER NUMBER NUMBER term term .
+    (3) expression -> RECT term NUMBER NUMBER NUMBER NUMBER term . term
+    (16) term -> . ID
 
-    $end            reduce using rule 5 (expression -> LINE NUMBER NUMBER NUMBER NUMBER term term .)
+    ID              shift and go to state 7
 
+    term                           shift and go to state 52
 
 state 50
 
@@ -498,10 +502,24 @@ state 50
     (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
 
-    COMA            shift and go to state 51
+    COMA            shift and go to state 53
 
 
 state 51
+
+    (4) expression -> ELLIPSE term NUMBER NUMBER NUMBER NUMBER term term .
+
+    $end            reduce using rule 4 (expression -> ELLIPSE term NUMBER NUMBER NUMBER NUMBER term term .)
+
+
+state 52
+
+    (3) expression -> RECT term NUMBER NUMBER NUMBER NUMBER term term .
+
+    $end            reduce using rule 3 (expression -> RECT term NUMBER NUMBER NUMBER NUMBER term term .)
+
+
+state 53
 
     (6) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER term term
     (7) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER term term
@@ -510,10 +528,10 @@ state 51
     (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
 
-    NUMBER          shift and go to state 52
+    NUMBER          shift and go to state 54
 
 
-state 52
+state 54
 
     (6) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER . term term
     (7) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER . NUMBER COMA NUMBER term term
@@ -523,12 +541,21 @@ state 52
     (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER . NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (16) term -> . ID
 
-    NUMBER          shift and go to state 53
-    ID              shift and go to state 9
+    NUMBER          shift and go to state 56
+    ID              shift and go to state 7
 
-    term                           shift and go to state 54
+    term                           shift and go to state 55
 
-state 53
+state 55
+
+    (6) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term . term
+    (16) term -> . ID
+
+    ID              shift and go to state 7
+
+    term                           shift and go to state 57
+
+state 56
 
     (7) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER term term
     (8) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER NUMBER COMA NUMBER term term
@@ -536,19 +563,17 @@ state 53
     (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
 
-    COMA            shift and go to state 55
+    COMA            shift and go to state 58
 
 
-state 54
+state 57
 
-    (6) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term . term
-    (16) term -> . ID
+    (6) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term .
 
-    ID              shift and go to state 9
+    $end            reduce using rule 6 (expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term .)
 
-    term                           shift and go to state 56
 
-state 55
+state 58
 
     (7) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER term term
     (8) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER term term
@@ -556,17 +581,10 @@ state 55
     (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
 
-    NUMBER          shift and go to state 57
+    NUMBER          shift and go to state 59
 
 
-state 56
-
-    (6) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term .
-
-    $end            reduce using rule 6 (expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term .)
-
-
-state 57
+state 59
 
     (7) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER . term term
     (8) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER . NUMBER COMA NUMBER term term
@@ -575,48 +593,48 @@ state 57
     (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER . NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (16) term -> . ID
 
-    NUMBER          shift and go to state 58
-    ID              shift and go to state 9
+    NUMBER          shift and go to state 61
+    ID              shift and go to state 7
 
-    term                           shift and go to state 59
+    term                           shift and go to state 60
 
-state 58
+state 60
+
+    (7) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term . term
+    (16) term -> . ID
+
+    ID              shift and go to state 7
+
+    term                           shift and go to state 62
+
+state 61
 
     (8) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER term term
     (9) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER NUMBER COMA NUMBER term term
     (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
 
-    COMA            shift and go to state 60
+    COMA            shift and go to state 63
 
 
-state 59
-
-    (7) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term . term
-    (16) term -> . ID
-
-    ID              shift and go to state 9
-
-    term                           shift and go to state 61
-
-state 60
-
-    (8) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER term term
-    (9) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER term term
-    (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
-    (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
-
-    NUMBER          shift and go to state 62
-
-
-state 61
+state 62
 
     (7) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term .
 
     $end            reduce using rule 7 (expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term .)
 
 
-state 62
+state 63
+
+    (8) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER term term
+    (9) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER term term
+    (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
+    (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
+
+    NUMBER          shift and go to state 64
+
+
+state 64
 
     (8) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER . term term
     (9) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER . NUMBER COMA NUMBER term term
@@ -624,149 +642,149 @@ state 62
     (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER . NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (16) term -> . ID
 
-    NUMBER          shift and go to state 63
-    ID              shift and go to state 9
+    NUMBER          shift and go to state 66
+    ID              shift and go to state 7
 
-    term                           shift and go to state 64
+    term                           shift and go to state 65
 
-state 63
+state 65
+
+    (8) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term . term
+    (16) term -> . ID
+
+    ID              shift and go to state 7
+
+    term                           shift and go to state 67
+
+state 66
 
     (9) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER term term
     (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER NUMBER COMA NUMBER term term
     (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
 
-    COMA            shift and go to state 65
+    COMA            shift and go to state 68
 
 
-state 64
-
-    (8) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term . term
-    (16) term -> . ID
-
-    ID              shift and go to state 9
-
-    term                           shift and go to state 66
-
-state 65
-
-    (9) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER term term
-    (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER term term
-    (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
-
-    NUMBER          shift and go to state 67
-
-
-state 66
+state 67
 
     (8) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term .
 
     $end            reduce using rule 8 (expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term .)
 
 
-state 67
+state 68
+
+    (9) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER term term
+    (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER term term
+    (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term
+
+    NUMBER          shift and go to state 69
+
+
+state 69
 
     (9) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER . term term
     (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER . NUMBER COMA NUMBER term term
     (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER . NUMBER COMA NUMBER NUMBER COMA NUMBER term term
     (16) term -> . ID
 
-    NUMBER          shift and go to state 68
-    ID              shift and go to state 9
+    NUMBER          shift and go to state 71
+    ID              shift and go to state 7
 
-    term                           shift and go to state 69
+    term                           shift and go to state 70
 
-state 68
-
-    (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER term term
-    (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER NUMBER COMA NUMBER term term
-
-    COMA            shift and go to state 70
-
-
-state 69
+state 70
 
     (9) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term . term
     (16) term -> . ID
 
-    ID              shift and go to state 9
+    ID              shift and go to state 7
 
-    term                           shift and go to state 71
-
-state 70
-
-    (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER term term
-    (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER term term
-
-    NUMBER          shift and go to state 72
-
+    term                           shift and go to state 72
 
 state 71
+
+    (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER term term
+    (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER NUMBER COMA NUMBER term term
+
+    COMA            shift and go to state 73
+
+
+state 72
 
     (9) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term .
 
     $end            reduce using rule 9 (expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term .)
 
 
-state 72
+state 73
+
+    (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER term term
+    (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER NUMBER COMA NUMBER term term
+
+    NUMBER          shift and go to state 74
+
+
+state 74
 
     (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER . term term
     (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER . NUMBER COMA NUMBER term term
     (16) term -> . ID
 
-    NUMBER          shift and go to state 73
-    ID              shift and go to state 9
+    NUMBER          shift and go to state 76
+    ID              shift and go to state 7
 
-    term                           shift and go to state 74
+    term                           shift and go to state 75
 
-state 73
-
-    (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER term term
-
-    COMA            shift and go to state 75
-
-
-state 74
+state 75
 
     (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term . term
     (16) term -> . ID
 
-    ID              shift and go to state 9
+    ID              shift and go to state 7
 
-    term                           shift and go to state 76
-
-state 75
-
-    (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER term term
-
-    NUMBER          shift and go to state 77
-
+    term                           shift and go to state 77
 
 state 76
+
+    (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER . COMA NUMBER term term
+
+    COMA            shift and go to state 78
+
+
+state 77
 
     (10) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term .
 
     $end            reduce using rule 10 (expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term .)
 
 
-state 77
+state 78
+
+    (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA . NUMBER term term
+
+    NUMBER          shift and go to state 79
+
+
+state 79
 
     (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER . term term
     (16) term -> . ID
 
-    ID              shift and go to state 9
+    ID              shift and go to state 7
 
-    term                           shift and go to state 78
+    term                           shift and go to state 80
 
-state 78
+state 80
 
     (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term . term
     (16) term -> . ID
 
-    ID              shift and go to state 9
+    ID              shift and go to state 7
 
-    term                           shift and go to state 79
+    term                           shift and go to state 81
 
-state 79
+state 81
 
     (11) expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term .
 

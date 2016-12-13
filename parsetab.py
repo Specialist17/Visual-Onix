@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = '5BF13B1205C10658F8544FCAF96BB589'
+_lr_signature = '21C9D6EFC81EB4876511F1202CB74E2F'
     
-_lr_action_items = {'COMA':([13,34,50,53,58,63,68,73,],[20,40,51,55,60,65,70,75,]),'NUMBER':([3,6,8,9,10,12,14,15,17,18,19,20,21,22,26,27,28,29,30,32,33,40,45,51,52,55,57,60,62,65,67,70,72,75,],[13,15,17,-16,18,19,21,22,25,26,27,28,29,30,32,33,34,35,36,38,39,45,50,52,53,57,58,62,63,67,68,72,73,77,]),'END':([0,],[1,]),'ELLIPSE':([0,],[10,]),'POLYGON':([0,],[3,]),'CIRCLE':([0,],[4,]),'STRINGVALUE':([9,31,],[-16,37,]),'ANIMATE':([0,],[7,]),'TEXT':([0,],[8,]),'ID':([0,4,7,9,25,35,36,38,39,41,42,43,44,52,54,57,59,62,64,67,69,72,74,77,78,],[9,9,9,-16,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,]),'RECT':([0,],[6,]),'DRAW':([9,16,],[-16,23,]),'MOVERIGHT':([9,16,],[-16,24,]),'CREATEHTML':([0,],[11,]),'LINE':([0,],[12,]),'$end':([1,2,5,9,11,23,24,37,46,47,48,49,56,61,66,71,76,79,],[-13,-17,0,-16,-1,-14,-15,-12,-2,-3,-4,-5,-6,-7,-8,-9,-10,-11,]),}
+_lr_action_items = {'DRAW':([7,13,],[-16,20,]),'ELLIPSE':([0,],[11,]),'END':([0,],[3,]),'POLYGON':([0,],[4,]),'TEXT':([0,],[6,]),'NUMBER':([4,5,6,7,15,16,17,18,19,22,23,25,26,27,28,29,31,32,33,38,39,40,45,53,54,58,59,63,64,68,69,73,74,78,],[14,15,16,-16,23,24,25,26,27,28,29,31,32,33,34,35,37,38,39,43,44,45,50,54,56,59,61,64,66,69,71,74,76,79,]),'ID':([0,1,7,9,11,12,24,35,37,41,42,43,44,48,49,54,55,59,60,64,65,69,70,74,75,79,80,],[7,7,-16,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,]),'CREATEHTML':([0,],[8,]),'CIRCLE':([0,],[9,]),'MOVERIGHT':([7,13,],[-16,21,]),'COMA':([14,34,50,56,61,66,71,76,],[22,40,53,58,63,68,73,78,]),'STRINGVALUE':([7,30,],[-16,36,]),'ANIMATE':([0,],[1,]),'LINE':([0,],[5,]),'RECT':([0,],[12,]),'$end':([2,3,7,8,10,20,21,36,46,47,51,52,57,62,67,72,77,81,],[-17,-13,-16,-1,0,-14,-15,-12,-5,-2,-4,-3,-6,-7,-8,-9,-10,-11,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([0,],[5,]),'term':([0,4,7,25,35,36,38,39,41,42,43,44,52,54,57,59,62,64,67,69,72,74,77,78,],[2,14,16,31,41,42,43,44,46,47,48,49,54,56,59,61,64,66,69,71,74,76,78,79,]),}
+_lr_goto_items = {'term':([0,1,9,11,12,24,35,37,41,42,43,44,48,49,54,55,59,60,64,65,69,70,74,75,79,80,],[2,13,17,18,19,30,41,42,46,47,48,49,51,52,55,57,60,62,65,67,70,72,75,77,80,81,]),'expression':([0,],[10,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -28,8 +28,8 @@ _lr_productions = [
   ("S' -> expression","S'",1,None,None,None),
   ('expression -> CREATEHTML','expression',1,'p_expression_createhtml','Parser.py',18),
   ('expression -> CIRCLE term NUMBER NUMBER NUMBER term term','expression',7,'p_expression_circle','Parser.py',25),
-  ('expression -> RECT NUMBER NUMBER NUMBER NUMBER term term','expression',7,'p_expression_rectangle','Parser.py',32),
-  ('expression -> ELLIPSE NUMBER NUMBER NUMBER NUMBER term term','expression',7,'p_expression_ellipse','Parser.py',38),
+  ('expression -> RECT term NUMBER NUMBER NUMBER NUMBER term term','expression',8,'p_expression_rectangle','Parser.py',32),
+  ('expression -> ELLIPSE term NUMBER NUMBER NUMBER NUMBER term term','expression',8,'p_expression_ellipse','Parser.py',38),
   ('expression -> LINE NUMBER NUMBER NUMBER NUMBER term term','expression',7,'p_expression_line','Parser.py',44),
   ('expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term','expression',12,'p_expression_polygon','Parser.py',50),
   ('expression -> POLYGON NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER NUMBER COMA NUMBER term term','expression',15,'p_expression_polygon','Parser.py',51),

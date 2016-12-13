@@ -17,7 +17,7 @@ f = open('VisualOnixTest.html','w')
 def p_expression_createhtml(p):
             'expression :  CREATEHTML'
 
-            f.write("<HTML> \n <style>body{background-image: url(\"cuadriculado.jpg\");} td,table,tr{width:100%; height:150px;}</style> <BODY><center><table><tr><td style=\"background-image:url(banner.jpg)\"><h1>Welcome to Visual Onix</h1></td></tr></table></center><svg width=\"100000\" height=\"100000\">")
+            f.write("<HTML> \n <style> \n body{background-image: url(\"cuadriculado.jpg\");} td,table,tr{width:100%; height:150px;} \n </style> \n <BODY> \n <center> \n <table> \n <tr> \n <td style=\"background-image:url(banner.jpg)\"> \n <h1>Welcome to Visual Onix</h1> \n </td> \n </tr> \n </table> \n </center> \n <svg width=\"100000\" height=\"100000\">")
             print ("WHOO")
 
 
@@ -25,26 +25,26 @@ def p_expression_circle(p):
 
         'expression : CIRCLE term NUMBER NUMBER NUMBER term term'
 
-        f.write("<circle id=\""+ str(p[2]) +"\" cx=\"" + str(p[3]) + "\" cy=\"" + str(p[4]) + "\" r=\"" + str(p[5]) + "\" stroke=\"" + str(p[6]) + "\" stroke-width=\"4\" fill=\"" + str(p[7]) + "\" />")
+        f.write("\n <circle id=\""+ str(p[2]) +"\" cx=\"" + str(p[3]) + "\" cy=\"" + str(p[4]) + "\" r=\"" + str(p[5]) + "\" stroke=\"" + str(p[6]) + "\" stroke-width=\"4\" fill=\"" + str(p[7]) + "\" />")
 
 
 def p_expression_rectangle(p):
 
-        'expression : RECT NUMBER NUMBER NUMBER NUMBER term term'
+        'expression : RECT term NUMBER NUMBER NUMBER NUMBER term term'
 
-        f.write("<rect x=\"" + str(p[2]) + "\" y=\"" + str(p[3]) + "\" width=\"" + str(p[4]) + "\" height=\"" + str(p[5]) + "\" stroke=\"" + str(p[6]) + "\" stroke-width=\"4\" fill=\"" + str(p[7]) + "\" />")
+        f.write("\n <rect id=\""+ str(p[2]) +"\" x=\"" + str(p[3]) + "\" y=\"" + str(p[4]) + "\" width=\"" + str(p[5]) + "\" height=\"" + str(p[6]) + "\" stroke=\"" + str(p[7]) + "\" stroke-width=\"4\" fill=\"" + str(p[8]) + "\" />")
 
 def p_expression_ellipse(p):
 
-        'expression : ELLIPSE NUMBER NUMBER NUMBER NUMBER term term'
+        'expression : ELLIPSE term NUMBER NUMBER NUMBER NUMBER term term'
 
-        f.write("<ellipse cx=\"" + str(p[2]) + "\" cy=\"" + str(p[3]) + "\" rx=\"" + str(p[4]) + "\" ry=\"" + str(p[5]) + "\" stroke=\"" + str(p[6]) + "\" stroke-width=\"4\" fill=\"" + str(p[7]) + "\" />")
+        f.write("\n <ellipse id=\""+ str(p[2]) +"\" cx=\"" + str(p[3]) + "\" cy=\"" + str(p[4]) + "\" rx=\"" + str(p[5]) + "\" ry=\"" + str(p[6]) + "\" stroke=\"" + str(p[7]) + "\" stroke-width=\"4\" fill=\"" + str(p[8]) + "\" />")
 
 def p_expression_line(p):
 
         'expression : LINE NUMBER NUMBER NUMBER NUMBER term term'
 
-        f.write("<line x1=\"" + str(p[2]) + "\" y1=\"" + str(p[3]) + "\" x2=\"" + str(p[4]) + "\" y2=\"" + str(p[5]) + "\" stroke=\"" + str(p[6]) + "\" stroke-width=\"4\" fill=\"" + str(p[7]) + "\" />")
+        f.write("\n <line x1=\"" + str(p[2]) + "\" y1=\"" + str(p[3]) + "\" x2=\"" + str(p[4]) + "\" y2=\"" + str(p[5]) + "\" stroke=\"" + str(p[6]) + "\" stroke-width=\"4\" fill=\"" + str(p[7]) + "\" />")
 
 def p_expression_polygon(p):
 
@@ -87,7 +87,7 @@ def p_animate_draw(p):
 def p_animate_moveright(p):
     'expression : ANIMATE term MOVERIGHT'
 
-    f.write("<style type=\"text/css\"> #"+ str(p[2]) +"{background-color: #fff;stroke-width: 4;cx: 200; ;animation: offset 2s linear forwards, fill 2s 2s forwards;}@keyframes offset{0%{cx: 300;}100%{cx: 800;fill-opacity: 0;} }@keyframes fill{0%{fill: #231F20;fill-opacity: 0;} }</style>")
+    f.write("<style type=\"text/css\"> #"+ str(p[2]) +"{background-color: #fff;stroke-width: 4;cx: 200; ;animation: moveright 2s linear forwards, fill 2s 2s forwards;}@keyframes moveright{0%{cx: 300;}100%{cx: 800;fill-opacity: 0;} }@keyframes fill{0%{fill: #231F20;fill-opacity: 0;} }</style>")
 
 
 
