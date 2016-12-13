@@ -7,7 +7,7 @@ Scalable Vector Graphics (SVG) is an XML based vector format built to simplify 2
 With Visual Onix, generating SVG is fast, easy and maintainable. This is achieved by utilizing the concept of object oriented and scripting capabilities from high level imperative and concurrent languages. Visual Onix uses these same concepts, focusing on generating both simple and complex SVG graphics by simply calling methods. Its purpose is to become an easy to learn programming language to save time and headaches for programmers when it comes to adding and customizing graphics in web pages.
 
 ## Language Tutorial
-
+[Tutorial](https://youtu.be/sPxiaKe2jbQ)
 
 ## Language Development
 Visual Onix is language based on libraries obtained from Python. These libraries are called PLY Lex and PLY Parse. Firstly, from the IDLE Python GUI, the user must run VisualOnixLex.py to call the lexical analyzer created from the library ply.lex. This files allows us to create the tokens and send it to the parser to be executed. When the code it's executed in the IDLE, a terminal window will prompt. Each time a user writes visual onix code the parser changes this code into a Python code, which converts it to an html code with the svg reference.
@@ -16,7 +16,7 @@ Visual Onix is language based on libraries obtained from Python. These libraries
 [Final Report](https://docs.google.com/document/d/1_WOnVQCNkIndmvxe6r0M9oM4MySccXSymDLyCiuF17E/pub)
 
 ## Reference Manual
-[https://docs.google.com/document/d/1_WOnVQCNkIndmvxe6r0M9oM4MySccXSymDLyCiuF17E/pub](https://docs.google.com/document/d/1_WOnVQCNkIndmvxe6r0M9oM4MySccXSymDLyCiuF17E/pub)
+[Manual](https://docs.google.com/document/d/1FUx-XwlvKLcL159nO9JLzZ2MbNOnSpwwpjKy4aTl44A/pub)
 
 ## Team
 
