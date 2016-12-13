@@ -12,6 +12,12 @@ With Visual Onix, generating SVG is fast, easy and maintainable. This is achieve
 ## Language Development
 Visual Onix is language based on libraries obtained from Python. These libraries are called PLY Lex and PLY Parse. Firstly, from the IDLE Python GUI, the user must run VisualOnixLex.py to call the lexical analyzer created from the library ply.lex. This files allows us to create the tokens and send it to the parser to be executed. When the code it's executed in the IDLE, a terminal window will prompt. Each time a user writes visual onix code the parser changes this code into a Python code, which converts it to an html code with the svg reference.
 
+## Report
+[Final Report](https://docs.google.com/document/d/1_WOnVQCNkIndmvxe6r0M9oM4MySccXSymDLyCiuF17E/pub)
+
+## Reference Manual
+[https://docs.google.com/document/d/1_WOnVQCNkIndmvxe6r0M9oM4MySccXSymDLyCiuF17E/pub](https://docs.google.com/document/d/1_WOnVQCNkIndmvxe6r0M9oM4MySccXSymDLyCiuF17E/pub)
+
 ## Team
 
 [![Fernando Arocho](https://avatars3.githubusercontent.com/u/6998363?v=3&s=400)](https://github.com/Specialist17) | [![Christian Lorenzo](https://avatars1.githubusercontent.com/u/5660030?v=3&s=400)](https://github.com/christianlorenzo1) | [![Luis Millan](https://avatars2.githubusercontent.com/u/5652390?v=3&s=400)](https://github.com/luismillan3)
